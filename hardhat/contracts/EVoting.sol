@@ -59,7 +59,6 @@ contract EVoting {
         emit VoteCast(msg.sender, _candidateIndex, block.timestamp);
     }
 
-    // 🔧 Tambahan untuk frontend
     function getCandidateCount() public view returns (uint) {
         return candidates.length;
     }
@@ -72,7 +71,6 @@ contract EVoting {
         return (c.name, c.voteCount);
     }
 
-    // Fungsi baru untuk mendapatkan detail transaksi dan data
     function getVoteHistoryCount() public view returns (uint) {
         return voteHistory.length;
     }
