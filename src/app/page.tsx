@@ -161,7 +161,7 @@ export default function VotePage() {
 
         setHasVoted(voted);
         if (voted) {
-          setStatus('✅ You have already voted in this election.');
+          setStatus('✅ Anda telah memberikan suara pada pemilihan ini.');
         }
       } catch (err) {
         console.warn('Check vote status failed', err);
