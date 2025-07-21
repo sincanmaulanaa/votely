@@ -1,0 +1,12 @@
+{
+  "contractAddress": "0xb366430e8a97f03E905e98C493a027C4D756A59D",
+  "candidates": [
+    "Joko Widodo",
+    "Prabowo Subianto",
+    "Ganjar Pranowo",
+    "Zainur Roziqin"
+  ],
+  "description": "Pemilihan Presiden Indonesia 2024",
+  "deployedAt": "2025-07-21T09:40:37.436Z",
+  "network": "sepolia"
+}

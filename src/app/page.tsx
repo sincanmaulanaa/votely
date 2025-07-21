@@ -17,15 +17,22 @@ export default function VotePage() {
       const count = await contract.getCandidateCount();
       const names: string[] = [];
 
+      console.log('Loading candidates from contract...');
+      console.log('Total candidates:', count.toString());
+
       for (let i = 0; i < count; i++) {
         const [name] = await contract.getCandidate(i);
         names.push(name);
+        console.log(`Candidate ${i + 1}: ${name}`);
       }
 
       setCandidates(names);
+      console.log('✅ Candidates loaded successfully:', names);
     } catch (error) {
-      setStatus('Error loading candidates.');
-      console.error(error);
+      setStatus(
+        '❌ Error loading candidates. Please check contract connection.'
+      );
+      console.error('Error loading candidates:', error);
     }
   };
 
