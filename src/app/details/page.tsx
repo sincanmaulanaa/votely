@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getEVotingContract } from '@/utils/contract';
 import { ethers } from 'ethers';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 interface VoteRecord {
   voter: string;
@@ -21,6 +22,7 @@ interface SystemStats {
 }
 
 export default function DetailsPage() {
+  const searchParams = useSearchParams();
   const [voteRecords, setVoteRecords] = useState<VoteRecord[]>([]);
   const [systemStats, setSystemStats] = useState<SystemStats | null>(null);
   const [currentAccount, setCurrentAccount] = useState<string>('');
@@ -28,11 +30,15 @@ export default function DetailsPage() {
     voted: boolean;
     candidateIndex: number;
     candidateName: string;
+    txHash?: string;
+    blockNumber?: number;
   }>();
   const [loading, setLoading] = useState<boolean>(true);
   const [tab, setTab] = useState<'transactions' | 'system' | 'myVote'>(
-    'transactions'
+    (searchParams.get('tab') as 'transactions' | 'system' | 'myVote') ||
+      'transactions'
   );
+  const [copyStatus, setCopyStatus] = useState<string>('');
 
   const formatDate = (timestamp: number) => {
     return new Date(timestamp * 1000).toLocaleString();
@@ -42,6 +48,28 @@ export default function DetailsPage() {
     return `${address.substring(0, 6)}...${address.substring(
       address.length - 4
     )}`;
+  };
+
+  const copyToClipboard = async (text: string, type: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopyStatus(`${type} copied!`);
+      setTimeout(() => setCopyStatus(''), 2000);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+      setCopyStatus('Failed to copy');
+      setTimeout(() => setCopyStatus(''), 2000);
+    }
+  };
+
+  const getEtherscanUrl = (txHash: string) => {
+    // Check if we're on localhost/testnet or mainnet
+    // You can modify this based on your network configuration
+    const isMainnet = false; // Set to true for mainnet
+    const baseUrl = isMainnet
+      ? 'https://etherscan.io/tx/'
+      : 'https://sepolia.etherscan.io/tx/'; // or other testnet
+    return `${baseUrl}${txHash}`;
   };
 
   const loadVoteHistory = async () => {
@@ -117,10 +145,30 @@ export default function DetailsPage() {
       if (voted) {
         const [name] = await contract.getCandidate(candidateIndex);
         console.log('Voted for candidate:', name);
+
+        // Try to get transaction hash from localStorage
+        const storedTxDetails = localStorage.getItem('lastVoteTransaction');
+        let txHash = '';
+        let blockNumber = 0;
+
+        if (storedTxDetails) {
+          try {
+            const txDetails = JSON.parse(storedTxDetails);
+            if (txDetails.candidateIndex === Number(candidateIndex)) {
+              txHash = txDetails.hash;
+              blockNumber = txDetails.blockNumber;
+            }
+          } catch (err) {
+            console.warn('Failed to parse stored transaction details:', err);
+          }
+        }
+
         setUserVoteInfo({
           voted,
           candidateIndex: Number(candidateIndex),
           candidateName: name,
+          txHash,
+          blockNumber,
         });
       } else {
         setUserVoteInfo({
@@ -177,10 +225,33 @@ export default function DetailsPage() {
         );
         const [name] = await contract.getCandidate(candidateIndex);
 
+        // Try to get transaction hash from localStorage
+        const storedTxDetails = localStorage.getItem('lastVoteTransaction');
+        let txHash = '';
+        let blockNumber = 0;
+
+        console.log('Stored transaction details:', storedTxDetails); // Debug log
+
+        if (storedTxDetails) {
+          try {
+            const txDetails = JSON.parse(storedTxDetails);
+            console.log('Parsed tx details:', txDetails); // Debug log
+            if (txDetails.candidateIndex === candidateIndex) {
+              txHash = txDetails.hash;
+              blockNumber = txDetails.blockNumber;
+              console.log('Transaction hash found:', txHash); // Debug log
+            }
+          } catch (err) {
+            console.warn('Failed to parse stored transaction details:', err);
+          }
+        }
+
         setUserVoteInfo({
           voted: true,
           candidateIndex: candidateIndex,
           candidateName: name,
+          txHash,
+          blockNumber,
         });
 
         console.log('User has voted for:', name);
@@ -464,12 +535,216 @@ export default function DetailsPage() {
                                 You have voted!
                               </span>
                             </div>
-                            <p className='text-green-600'>
+                            <p className='text-green-600 mb-4'>
                               You voted for{' '}
                               <span className='font-semibold'>
                                 {userVoteInfo.candidateName}
                               </span>
                             </p>
+
+                            {/* Debug Info */}
+                            <div className='mb-4 p-3 bg-gray-100 rounded text-xs'>
+                              <strong>Debug Info:</strong>
+                              <br />
+                              TxHash: {userVoteInfo.txHash || 'Not found'}
+                              <br />
+                              Block: {userVoteInfo.blockNumber || 'Not found'}
+                              <br />
+                              Candidate Index: {userVoteInfo.candidateIndex}
+                            </div>
+
+                            {/* Refresh Button */}
+                            <button
+                              onClick={() => {
+                                console.log('Refreshing vote info...');
+                                loadUserVoteInfo();
+                                checkVoteStatus();
+                              }}
+                              className='mb-4 px-3 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600'
+                            >
+                              Refresh Vote Info
+                            </button>
+
+                            {/* Transaction Details */}
+                            {userVoteInfo.txHash ? (
+                              <div className='mt-4 border-t border-green-200 pt-4'>
+                                <h4 className='text-sm font-semibold text-green-700 mb-3'>
+                                  Transaction Details
+                                </h4>
+
+                                {/* Transaction Hash */}
+                                <div className='mb-3'>
+                                  <div className='flex items-center justify-between mb-2'>
+                                    <span className='text-sm text-green-600'>
+                                      Transaction Hash:
+                                    </span>
+                                    <div className='flex items-center gap-2'>
+                                      <button
+                                        onClick={() =>
+                                          copyToClipboard(
+                                            userVoteInfo.txHash!,
+                                            'Transaction hash'
+                                          )
+                                        }
+                                        className='p-1 text-green-600 hover:text-green-800 transition-colors'
+                                        title='Copy transaction hash'
+                                      >
+                                        <svg
+                                          className='w-4 h-4'
+                                          fill='none'
+                                          stroke='currentColor'
+                                          viewBox='0 0 24 24'
+                                        >
+                                          <path
+                                            strokeLinecap='round'
+                                            strokeLinejoin='round'
+                                            strokeWidth={2}
+                                            d='M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z'
+                                          />
+                                        </svg>
+                                      </button>
+                                      <a
+                                        href={getEtherscanUrl(
+                                          userVoteInfo.txHash
+                                        )}
+                                        target='_blank'
+                                        rel='noopener noreferrer'
+                                        className='p-1 text-green-600 hover:text-green-800 transition-colors'
+                                        title='View on Etherscan'
+                                      >
+                                        <svg
+                                          className='w-4 h-4'
+                                          fill='none'
+                                          stroke='currentColor'
+                                          viewBox='0 0 24 24'
+                                        >
+                                          <path
+                                            strokeLinecap='round'
+                                            strokeLinejoin='round'
+                                            strokeWidth={2}
+                                            d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+                                          />
+                                        </svg>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <div className='font-mono text-xs text-green-700 bg-green-100 p-2 rounded border break-all'>
+                                    {userVoteInfo.txHash}
+                                  </div>
+                                </div>
+
+                                {/* Block Number */}
+                                {userVoteInfo.blockNumber &&
+                                  userVoteInfo.blockNumber > 0 && (
+                                    <div className='mb-3'>
+                                      <div className='flex items-center justify-between mb-2'>
+                                        <span className='text-sm text-green-600'>
+                                          Block Number:
+                                        </span>
+                                        <button
+                                          onClick={() =>
+                                            copyToClipboard(
+                                              userVoteInfo.blockNumber!.toString(),
+                                              'Block number'
+                                            )
+                                          }
+                                          className='p-1 text-green-600 hover:text-green-800 transition-colors'
+                                          title='Copy block number'
+                                        >
+                                          <svg
+                                            className='w-4 h-4'
+                                            fill='none'
+                                            stroke='currentColor'
+                                            viewBox='0 0 24 24'
+                                          >
+                                            <path
+                                              strokeLinecap='round'
+                                              strokeLinejoin='round'
+                                              strokeWidth={2}
+                                              d='M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z'
+                                            />
+                                          </svg>
+                                        </button>
+                                      </div>
+                                      <div className='font-mono text-xs text-green-700 bg-green-100 p-2 rounded border'>
+                                        {userVoteInfo.blockNumber}
+                                      </div>
+                                    </div>
+                                  )}
+
+                                {/* Actions */}
+                                <div className='flex gap-2 mt-4'>
+                                  <a
+                                    href={getEtherscanUrl(userVoteInfo.txHash)}
+                                    target='_blank'
+                                    rel='noopener noreferrer'
+                                    className='inline-flex items-center px-3 py-2 bg-green-600 text-white text-xs font-medium rounded-lg hover:bg-green-700 transition-colors'
+                                  >
+                                    <svg
+                                      className='w-3 h-3 mr-1'
+                                      fill='none'
+                                      stroke='currentColor'
+                                      viewBox='0 0 24 24'
+                                    >
+                                      <path
+                                        strokeLinecap='round'
+                                        strokeLinejoin='round'
+                                        strokeWidth={2}
+                                        d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+                                      />
+                                    </svg>
+                                    View on Etherscan
+                                  </a>
+                                  <button
+                                    onClick={() =>
+                                      copyToClipboard(
+                                        userVoteInfo.txHash!,
+                                        'Transaction hash'
+                                      )
+                                    }
+                                    className='inline-flex items-center px-3 py-2 bg-gray-100 text-gray-700 text-xs font-medium rounded-lg hover:bg-gray-200 transition-colors'
+                                  >
+                                    <svg
+                                      className='w-3 h-3 mr-1'
+                                      fill='none'
+                                      stroke='currentColor'
+                                      viewBox='0 0 24 24'
+                                    >
+                                      <path
+                                        strokeLinecap='round'
+                                        strokeLinejoin='round'
+                                        strokeWidth={2}
+                                        d='M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z'
+                                      />
+                                    </svg>
+                                    Copy Hash
+                                  </button>
+                                </div>
+                              </div>
+                            ) : (
+                              <div className='mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded'>
+                                <p className='text-sm text-yellow-700'>
+                                  🔍 Transaction hash not found in localStorage.
+                                  This happens if:
+                                </p>
+                                <ul className='text-xs text-yellow-600 mt-2 ml-4 list-disc'>
+                                  <li>
+                                    You voted from a different browser/device
+                                  </li>
+                                  <li>Browser data was cleared</li>
+                                  <li>
+                                    Vote was cast before this feature was added
+                                  </li>
+                                </ul>
+                              </div>
+                            )}
+
+                            {/* Copy Status Notification */}
+                            {copyStatus && (
+                              <div className='mt-3 p-2 bg-blue-50 border border-blue-200 rounded text-sm text-blue-700'>
+                                {copyStatus}
+                              </div>
+                            )}
                           </div>
                         ) : (
                           <div className='bg-yellow-50 border border-yellow-200 rounded-lg p-4'>

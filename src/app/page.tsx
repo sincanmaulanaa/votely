@@ -56,6 +56,7 @@ export default function VotePage() {
         candidateIndex: selected,
         candidateName: candidates[selected],
       };
+      console.log('Saving transaction details to localStorage:', txDetails); // Debug log
       localStorage.setItem('lastVoteTransaction', JSON.stringify(txDetails));
 
       setTimeout(() => {
