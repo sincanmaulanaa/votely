@@ -68,24 +68,24 @@ export default function ResultPage() {
     if (index === 0)
       return {
         emoji: '🥇',
-        text: '1st Place',
+        text: 'Peringkat 1',
         color: 'text-yellow-600 bg-yellow-50 border-yellow-200',
       };
     if (index === 1)
       return {
         emoji: '🥈',
-        text: '2nd Place',
+        text: 'Peringkat 2',
         color: 'text-gray-600 bg-gray-50 border-gray-200',
       };
     if (index === 2)
       return {
         emoji: '🥉',
-        text: '3rd Place',
+        text: 'Peringkat 3',
         color: 'text-amber-600 bg-amber-50 border-amber-200',
       };
     return {
       emoji: '📊',
-      text: `${index + 1}th Place`,
+      text: `Peringkat ${index + 1}`,
       color: 'text-blue-600 bg-blue-50 border-blue-200',
     };
   };
@@ -112,9 +112,7 @@ export default function ResultPage() {
                   />
                 </svg>
               </div>
-              <h1 className='text-xl font-bold text-gray-900'>
-                Votely Results
-              </h1>
+              <h1 className='text-xl font-bold text-gray-900'>Hasil Votely</h1>
             </div>
 
             <div className='flex items-center space-x-4'>
@@ -122,11 +120,11 @@ export default function ResultPage() {
               <div className='hidden md:flex items-center space-x-4 text-sm text-gray-600'>
                 <div className='flex items-center space-x-1'>
                   <span className='w-2 h-2 bg-green-400 rounded-full animate-pulse'></span>
-                  <span>{totalVotes} total votes</span>
+                  <span>{totalVotes} total suara</span>
                 </div>
                 <div className='flex items-center space-x-1'>
                   <span className='w-2 h-2 bg-blue-400 rounded-full'></span>
-                  <span>{candidates.length} candidates</span>
+                  <span>{candidates.length} kandidat</span>
                 </div>
               </div>
 
@@ -149,7 +147,7 @@ export default function ResultPage() {
                     d='M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15'
                   />
                 </svg>
-                {refreshing ? 'Refreshing...' : 'Refresh'}
+                {refreshing ? 'Memperbarui...' : 'Perbarui'}
               </button>
 
               {/* Navigation Links */}
@@ -171,13 +169,13 @@ export default function ResultPage() {
                       d='M10 19l-7-7m0 0l7-7m-7 7h18'
                     />
                   </svg>
-                  Vote
+                  Suara
                 </Link>
                 <Link
                   href='/details'
                   className='inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200'
                 >
-                  Details
+                  Detail
                   <svg
                     className='w-4 h-4 ml-1'
                     fill='none'
@@ -218,13 +216,13 @@ export default function ResultPage() {
             </svg>
           </div>
           <h1 className='text-4xl font-bold text-gray-900 mb-4'>
-            Election Results
+            Hasil Pemilihan
           </h1>
           <p className='text-xl text-gray-600 mb-2'>
-            Live voting results and candidate standings
+            Hasil voting langsung dan peringkat kandidat
           </p>
           <p className='text-sm text-gray-500'>
-            Results update automatically every 30 seconds
+            Hasil diperbarui otomatis setiap 30 detik
           </p>
         </div>
 
@@ -233,7 +231,7 @@ export default function ResultPage() {
           <div className='bg-white rounded-2xl shadow-lg border border-gray-100 p-6'>
             <div className='flex items-center justify-between'>
               <div>
-                <p className='text-sm font-medium text-gray-600'>Total Votes</p>
+                <p className='text-sm font-medium text-gray-600'>Total Suara</p>
                 <p className='text-3xl font-bold text-indigo-600'>
                   {totalVotes}
                 </p>
@@ -259,7 +257,7 @@ export default function ResultPage() {
           <div className='bg-white rounded-2xl shadow-lg border border-gray-100 p-6'>
             <div className='flex items-center justify-between'>
               <div>
-                <p className='text-sm font-medium text-gray-600'>Candidates</p>
+                <p className='text-sm font-medium text-gray-600'>Kandidat</p>
                 <p className='text-3xl font-bold text-purple-600'>
                   {candidates.length}
                 </p>
@@ -286,10 +284,10 @@ export default function ResultPage() {
             <div className='flex items-center justify-between'>
               <div>
                 <p className='text-sm font-medium text-gray-600'>
-                  Leading Candidate
+                  Kandidat Terdepan
                 </p>
                 <p className='text-lg font-bold text-green-600'>
-                  {sortedCandidates[0]?.name || 'No votes yet'}
+                  {sortedCandidates[0]?.name || 'Belum ada suara'}
                 </p>
               </div>
               <div className='w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center'>
@@ -316,12 +314,12 @@ export default function ResultPage() {
           <div className='p-8'>
             <div className='flex items-center justify-between mb-8'>
               <h2 className='text-2xl font-bold text-gray-900'>
-                Candidate Rankings
+                Peringkat Kandidat
               </h2>
               {refreshing && (
                 <div className='flex items-center space-x-2 text-sm text-blue-600'>
                   <div className='w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin'></div>
-                  <span>Updating results...</span>
+                  <span>Memperbarui hasil...</span>
                 </div>
               )}
             </div>
@@ -330,7 +328,7 @@ export default function ResultPage() {
               <div className='flex justify-center items-center py-16'>
                 <div className='text-center'>
                   <div className='w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-4'></div>
-                  <p className='text-gray-600'>Loading election results...</p>
+                  <p className='text-gray-600'>Memuat hasil pemilihan...</p>
                 </div>
               </div>
             ) : totalVotes === 0 ? (
@@ -351,10 +349,10 @@ export default function ResultPage() {
                   </svg>
                 </div>
                 <h3 className='text-xl font-semibold text-gray-700 mb-2'>
-                  No votes cast yet
+                  Belum ada suara yang diberikan
                 </h3>
                 <p className='text-gray-500'>
-                  Be the first to vote in this election!
+                  Jadilah yang pertama memberikan suara dalam pemilihan ini!
                 </p>
                 <Link
                   href='/'
@@ -373,7 +371,7 @@ export default function ResultPage() {
                       d='M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4'
                     />
                   </svg>
-                  Cast Your Vote
+                  Berikan Suara Anda
                 </Link>
               </div>
             ) : (
@@ -414,7 +412,7 @@ export default function ResultPage() {
                             {voteCount}
                           </div>
                           <div className='text-sm text-gray-500'>
-                            {percentage.toFixed(1)}% of votes
+                            {percentage.toFixed(1)}% dari suara
                           </div>
                         </div>
                       </div>

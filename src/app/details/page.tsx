@@ -53,11 +53,11 @@ export default function DetailsPage() {
   const copyToClipboard = async (text: string, type: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      setCopyStatus(`${type} copied!`);
+      setCopyStatus(`${type} disalin!`);
       setTimeout(() => setCopyStatus(''), 2000);
     } catch (err) {
       console.error('Failed to copy: ', err);
-      setCopyStatus('Failed to copy');
+      setCopyStatus('Gagal menyalin');
       setTimeout(() => setCopyStatus(''), 2000);
     }
   };
@@ -290,9 +290,7 @@ export default function DetailsPage() {
                   />
                 </svg>
               </div>
-              <h1 className='text-xl font-bold text-gray-900'>
-                System Details
-              </h1>
+              <h1 className='text-xl font-bold text-gray-900'>Detail Sistem</h1>
             </div>
 
             <div className='flex items-center space-x-2'>
@@ -313,13 +311,13 @@ export default function DetailsPage() {
                     d='M10 19l-7-7m0 0l7-7m-7 7h18'
                   />
                 </svg>
-                Vote
+                Suara
               </Link>
               <Link
                 href='/result'
                 className='inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200'
               >
-                Results
+                Hasil
                 <svg
                   className='w-4 h-4 ml-1'
                   fill='none'
@@ -359,13 +357,13 @@ export default function DetailsPage() {
             </svg>
           </div>
           <h1 className='text-4xl font-bold text-gray-900 mb-4'>
-            Voting System Details
+            Detail Sistem Voting
           </h1>
           <p className='text-xl text-gray-600 mb-2'>
-            Explore blockchain transparency and transaction history
+            Jelajahi transparansi blockchain dan riwayat transaksi
           </p>
           <p className='text-sm text-gray-500'>
-            All data is immutably stored on the blockchain
+            Semua data disimpan secara permanen di blockchain
           </p>
         </div>
 
@@ -394,7 +392,7 @@ export default function DetailsPage() {
                     d='M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01'
                   />
                 </svg>
-                <span>Transaction History</span>
+                <span>Riwayat Transaksi</span>
               </div>
             </button>
             <button
@@ -419,7 +417,7 @@ export default function DetailsPage() {
                     d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'
                   />
                 </svg>
-                <span>System Statistics</span>
+                <span>Statistik Sistem</span>
               </div>
             </button>
             <button
@@ -444,7 +442,7 @@ export default function DetailsPage() {
                     d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
                   />
                 </svg>
-                <span>My Vote</span>
+                <span>Suara Saya</span>
               </div>
             </button>
           </div>
@@ -456,10 +454,10 @@ export default function DetailsPage() {
                 <div className='text-center'>
                   <div className='w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-4'></div>
                   <p className='text-gray-600 text-lg'>
-                    Loading blockchain data...
+                    Memuat data blockchain...
                   </p>
                   <p className='text-gray-500 text-sm mt-2'>
-                    This may take a few moments
+                    Ini mungkin memerlukan beberapa saat
                   </p>
                 </div>
               </div>
@@ -470,7 +468,7 @@ export default function DetailsPage() {
                   <div>
                     <div className='flex items-center justify-between mb-8'>
                       <h2 className='text-2xl font-bold text-gray-900'>
-                        Vote Transaction History
+                        Riwayat Transaksi Suara
                       </h2>
                       <div className='flex items-center space-x-2 text-sm text-gray-500'>
                         <svg
@@ -486,7 +484,7 @@ export default function DetailsPage() {
                             d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
                           />
                         </svg>
-                        <span>{voteRecords.length} transactions recorded</span>
+                        <span>{voteRecords.length} transaksi tercatat</span>
                       </div>
                     </div>
 
@@ -508,10 +506,10 @@ export default function DetailsPage() {
                           </svg>
                         </div>
                         <h3 className='text-xl font-semibold text-gray-700 mb-2'>
-                          No transactions yet
+                          Belum ada transaksi
                         </h3>
                         <p className='text-gray-500'>
-                          Voting transactions will appear here once cast
+                          Transaksi voting akan muncul di sini setelah diberikan
                         </p>
                       </div>
                     ) : (
@@ -521,16 +519,16 @@ export default function DetailsPage() {
                             <thead className='bg-gradient-to-r from-gray-50 to-gray-100'>
                               <tr>
                                 <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                  Voter Address
+                                  Alamat Pemilih
                                 </th>
                                 <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                  Candidate
+                                  Kandidat
                                 </th>
                                 <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                  Timestamp
+                                  Waktu
                                 </th>
                                 <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                  Transaction Hash
+                                  Hash Transaksi
                                 </th>
                               </tr>
                             </thead>
@@ -575,7 +573,7 @@ export default function DetailsPage() {
                 {tab === 'system' && systemStats && (
                   <div>
                     <h2 className='text-2xl font-bold text-gray-900 mb-8'>
-                      System Statistics & Information
+                      Statistik & Informasi Sistem
                     </h2>
 
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
@@ -598,13 +596,13 @@ export default function DetailsPage() {
                             </svg>
                           </div>
                           <h3 className='text-xl font-bold text-gray-800'>
-                            Voting Statistics
+                            Statistik Voting
                           </h3>
                         </div>
                         <div className='space-y-4'>
                           <div className='flex justify-between items-center py-3 border-b border-indigo-200'>
                             <span className='text-gray-700 font-medium'>
-                              Total Candidates:
+                              Total Kandidat:
                             </span>
                             <span className='text-2xl font-bold text-indigo-600'>
                               {systemStats.totalCandidates}
@@ -612,7 +610,7 @@ export default function DetailsPage() {
                           </div>
                           <div className='flex justify-between items-center py-3 border-b border-indigo-200'>
                             <span className='text-gray-700 font-medium'>
-                              Total Votes Cast:
+                              Total Suara Diberikan:
                             </span>
                             <span className='text-2xl font-bold text-indigo-600'>
                               {systemStats.totalVotes}
@@ -620,7 +618,7 @@ export default function DetailsPage() {
                           </div>
                           <div className='flex justify-between items-center py-3'>
                             <span className='text-gray-700 font-medium'>
-                              Participation Rate:
+                              Tingkat Partisipasi:
                             </span>
                             <span className='text-2xl font-bold text-indigo-600'>
                               {voteRecords.length > 0
@@ -654,13 +652,13 @@ export default function DetailsPage() {
                             </svg>
                           </div>
                           <h3 className='text-xl font-bold text-gray-800'>
-                            Contract Information
+                            Informasi Kontrak
                           </h3>
                         </div>
                         <div className='space-y-4'>
                           <div className='py-3 border-b border-purple-200'>
                             <span className='text-gray-700 font-medium block mb-2'>
-                              Contract Owner:
+                              Pemilik Kontrak:
                             </span>
                             <div className='flex items-center space-x-2'>
                               <div className='w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center text-white text-xs font-bold'>
@@ -675,7 +673,7 @@ export default function DetailsPage() {
                           </div>
                           <div className='flex justify-between items-center py-3 border-b border-purple-200'>
                             <span className='text-gray-700 font-medium'>
-                              Started At:
+                              Dimulai Pada:
                             </span>
                             <span className='font-medium text-gray-800'>
                               {formatDate(systemStats.startTime)}
@@ -683,10 +681,10 @@ export default function DetailsPage() {
                           </div>
                           <div className='flex justify-between items-center py-3'>
                             <span className='text-gray-700 font-medium'>
-                              Running Duration:
+                              Durasi Berjalan:
                             </span>
                             <span className='font-bold text-purple-600'>
-                              {Math.floor(systemStats.duration / 86400)} days
+                              {Math.floor(systemStats.duration / 86400)} hari
                             </span>
                           </div>
                         </div>
@@ -699,7 +697,7 @@ export default function DetailsPage() {
                 {tab === 'myVote' && (
                   <div>
                     <h2 className='text-2xl font-bold text-gray-900 mb-8'>
-                      Your Voting Information
+                      Informasi Voting Anda
                     </h2>
 
                     <div className='max-w-2xl mx-auto'>
@@ -723,7 +721,7 @@ export default function DetailsPage() {
                           </div>
                           <div>
                             <h3 className='text-xl font-bold text-gray-800'>
-                              Your Account
+                              Akun Anda
                             </h3>
                             <p className='text-sm font-mono text-gray-600 bg-gray-100 px-3 py-1 rounded-lg mt-2'>
                               {currentAccount}
@@ -735,7 +733,7 @@ export default function DetailsPage() {
                       {/* Voting Status */}
                       <div className='bg-white border border-gray-200 rounded-3xl p-8 shadow-sm'>
                         <h3 className='text-xl font-bold text-gray-800 mb-6'>
-                          Voting Status
+                          Status Voting
                         </h3>
 
                         {userVoteInfo?.voted ? (
@@ -758,11 +756,11 @@ export default function DetailsPage() {
                               </div>
                               <div>
                                 <h4 className='text-xl font-bold text-green-700'>
-                                  Vote Confirmed!
+                                  Suara Terkonfirmasi!
                                 </h4>
                                 <p className='text-green-600'>
-                                  Your vote has been successfully recorded on
-                                  the blockchain
+                                  Suara Anda telah berhasil tercatat di
+                                  blockchain
                                 </p>
                               </div>
                             </div>
@@ -770,7 +768,7 @@ export default function DetailsPage() {
                             <div className='bg-white/50 rounded-xl p-4 mb-4'>
                               <div className='flex items-center justify-between mb-2'>
                                 <span className='text-gray-700 font-medium'>
-                                  Voted for:
+                                  Dipilih untuk:
                                 </span>
                                 <span className='text-lg font-bold text-green-700'>
                                   {userVoteInfo.candidateName}
@@ -778,7 +776,7 @@ export default function DetailsPage() {
                               </div>
                               <div className='flex items-center justify-between'>
                                 <span className='text-gray-700 font-medium'>
-                                  Candidate Index:
+                                  Indeks Kandidat:
                                 </span>
                                 <span className='font-mono text-gray-600'>
                                   {userVoteInfo.candidateIndex}
@@ -790,12 +788,12 @@ export default function DetailsPage() {
                             {userVoteInfo.txHash && (
                               <div className='border-t border-green-200 pt-4'>
                                 <h5 className='font-semibold text-gray-800 mb-3'>
-                                  Transaction Details
+                                  Detail Transaksi
                                 </h5>
                                 <div className='space-y-3'>
                                   <div className='flex items-center justify-between'>
                                     <span className='text-gray-600'>
-                                      Transaction Hash:
+                                      Hash Transaksi:
                                     </span>
                                     <div className='flex items-center space-x-2'>
                                       <span className='font-mono text-sm bg-gray-100 px-2 py-1 rounded'>
@@ -805,7 +803,7 @@ export default function DetailsPage() {
                                         onClick={() =>
                                           copyToClipboard(
                                             userVoteInfo.txHash!,
-                                            'Transaction hash'
+                                            'Hash transaksi'
                                           )
                                         }
                                         className='p-1 text-gray-500 hover:text-gray-700 transition-colors'
@@ -830,7 +828,7 @@ export default function DetailsPage() {
                                   {userVoteInfo.blockNumber && (
                                     <div className='flex items-center justify-between'>
                                       <span className='text-gray-600'>
-                                        Block Number:
+                                        Nomor Blok:
                                       </span>
                                       <div className='flex items-center space-x-2'>
                                         <span className='font-mono text-sm bg-gray-100 px-2 py-1 rounded'>
@@ -840,7 +838,7 @@ export default function DetailsPage() {
                                           onClick={() =>
                                             copyToClipboard(
                                               userVoteInfo.blockNumber!.toString(),
-                                              'Block number'
+                                              'Nomor blok'
                                             )
                                           }
                                           className='p-1 text-gray-500 hover:text-gray-700 transition-colors'
@@ -883,7 +881,7 @@ export default function DetailsPage() {
                                       d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M7 7l10 10M17 7v10'
                                     />
                                   </svg>
-                                  View on Etherscan
+                                  Lihat di Etherscan
                                 </a>
                               </div>
                             )}
@@ -908,11 +906,11 @@ export default function DetailsPage() {
                               </div>
                               <div>
                                 <h4 className='text-xl font-bold text-yellow-700'>
-                                  No Vote Recorded
+                                  Tidak Ada Suara Tercatat
                                 </h4>
                                 <p className='text-yellow-600'>
-                                  You haven't cast your vote in this election
-                                  yet
+                                  Anda belum memberikan suara dalam pemilihan
+                                  ini
                                 </p>
                               </div>
                             </div>
@@ -933,7 +931,7 @@ export default function DetailsPage() {
                                   d='M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4'
                                 />
                               </svg>
-                              Go to Voting Page
+                              Ke Halaman Voting
                             </Link>
                           </div>
                         )}

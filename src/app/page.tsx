@@ -229,11 +229,11 @@ export default function VotePage() {
               <div className='hidden md:flex items-center space-x-4 text-sm text-gray-600'>
                 <div className='flex items-center space-x-1'>
                   <span className='w-2 h-2 bg-green-400 rounded-full'></span>
-                  <span>{contractStats.totalVotes} votes cast</span>
+                  <span>{contractStats.totalVotes} suara terkumpul</span>
                 </div>
                 <div className='flex items-center space-x-1'>
                   <span className='w-2 h-2 bg-blue-400 rounded-full'></span>
-                  <span>{contractStats.totalCandidates} candidates</span>
+                  <span>{contractStats.totalCandidates} kandidat</span>
                 </div>
               </div>
 
@@ -256,7 +256,7 @@ export default function VotePage() {
                       d='M13 10V3L4 14h7v7l9-11h-7z'
                     />
                   </svg>
-                  Connect Wallet
+                  Hubungkan Dompet
                 </button>
               ) : (
                 <div className='flex items-center space-x-2'>
@@ -298,11 +298,12 @@ export default function VotePage() {
                 </svg>
               </div>
               <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-                Secure Blockchain Voting
+                Pemungutan Suara Blockchain yang Aman
               </h2>
               <p className='text-lg text-gray-600 max-w-2xl mx-auto mb-8'>
-                Connect your wallet to participate in transparent, tamper-proof
-                elections powered by blockchain technology.
+                Hubungkan dompet Anda untuk berpartisipasi dalam pemilihan yang
+                transparan dan anti-manipulasi yang didukung teknologi
+                blockchain.
               </p>
             </div>
 
@@ -324,11 +325,11 @@ export default function VotePage() {
                   </svg>
                 </div>
                 <h3 className='font-semibold text-gray-900 mb-2'>
-                  Secure & Anonymous
+                  Aman & Anonim
                 </h3>
                 <p className='text-sm text-gray-600'>
-                  Your vote is encrypted and anonymous, ensuring privacy while
-                  maintaining transparency.
+                  Suara Anda dienkripsi dan anonim, memastikan privasi sambil
+                  menjaga transparansi.
                 </p>
               </div>
 
@@ -349,11 +350,11 @@ export default function VotePage() {
                   </svg>
                 </div>
                 <h3 className='font-semibold text-gray-900 mb-2'>
-                  Instant Results
+                  Hasil Instan
                 </h3>
                 <p className='text-sm text-gray-600'>
-                  Real-time vote counting with immediate result updates on the
-                  blockchain.
+                  Penghitungan suara real-time dengan pembaruan hasil langsung
+                  di blockchain.
                 </p>
               </div>
 
@@ -374,11 +375,11 @@ export default function VotePage() {
                   </svg>
                 </div>
                 <h3 className='font-semibold text-gray-900 mb-2'>
-                  Immutable Record
+                  Rekaman Tidak Dapat Diubah
                 </h3>
                 <p className='text-sm text-gray-600'>
-                  All votes are permanently recorded on the blockchain and
-                  cannot be altered.
+                  Semua suara tercatat permanen di blockchain dan tidak dapat
+                  diubah.
                 </p>
               </div>
             </div>
@@ -400,7 +401,7 @@ export default function VotePage() {
                   d='M13 10V3L4 14h7v7l9-11h-7z'
                 />
               </svg>
-              Connect Wallet to Vote
+              Hubungkan Dompet untuk Memilih
             </button>
           </div>
         ) : (
@@ -424,13 +425,13 @@ export default function VotePage() {
                 </svg>
               </div>
               <h1 className='text-4xl font-bold text-gray-900 mb-4'>
-                Cast Your Vote
+                Berikan Suara Anda
               </h1>
               <p className='text-xl text-gray-600 mb-2'>
-                Select your preferred candidate below
+                Pilih kandidat pilihan Anda di bawah ini
               </p>
               <p className='text-sm text-gray-500'>
-                Your vote is secure, anonymous, and immutable
+                Suara Anda aman, anonim, dan tidak dapat diubah
               </p>
             </div>
 
@@ -455,11 +456,11 @@ export default function VotePage() {
                   </div>
                   <div>
                     <h3 className='text-lg font-semibold text-amber-800'>
-                      You've Already Voted
+                      Anda Sudah Memberikan Suara
                     </h3>
                     <p className='text-amber-700'>
-                      Thank you for participating! You can view the results or
-                      transaction details.
+                      Terima kasih atas partisipasi Anda! Anda dapat melihat
+                      hasil atau detail transaksi.
                     </p>
                   </div>
                 </div>
@@ -472,7 +473,7 @@ export default function VotePage() {
                 <div className='flex items-center justify-between mb-8'>
                   <h2 className='text-2xl font-bold text-gray-900 flex items-center'>
                     <span className='w-3 h-3 bg-indigo-500 rounded-full mr-3'></span>
-                    Choose Your Candidate
+                    Pilih Kandidat Anda
                   </h2>
                   <div className='flex items-center space-x-2 text-sm text-gray-500'>
                     <svg
@@ -488,7 +489,7 @@ export default function VotePage() {
                         d='M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'
                       />
                     </svg>
-                    <span>{candidates.length} candidates available</span>
+                    <span>{candidates.length} kandidat tersedia</span>
                   </div>
                 </div>
 
@@ -563,7 +564,7 @@ export default function VotePage() {
                             {name}
                           </h3>
                           <p className='text-sm text-gray-600 mb-3'>
-                            Candidate #{index + 1}
+                            Kandidat #{index + 1}
                           </p>
 
                           {/* Selection Badge */}
@@ -582,7 +583,7 @@ export default function VotePage() {
                                   d='M5 13l4 4L19 7'
                                 />
                               </svg>
-                              Selected
+                              Dipilih
                             </div>
                           )}
                         </div>
@@ -649,12 +650,12 @@ export default function VotePage() {
                               d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
                             ></path>
                           </svg>
-                          Processing Vote...
+                          Memproses Suara...
                         </span>
                       ) : selected === null ? (
-                        'Select a Candidate to Continue'
+                        'Pilih Kandidat untuk Melanjutkan'
                       ) : (
-                        `Vote for ${candidates[selected]}`
+                        `Pilih ${candidates[selected]}`
                       )}
                     </button>
 
@@ -674,7 +675,7 @@ export default function VotePage() {
                         />
                       </svg>
                       <span>
-                        Your vote is encrypted and stored securely on the
+                        Suara Anda dienkripsi dan disimpan dengan aman di
                         blockchain
                       </span>
                     </div>
@@ -695,10 +696,10 @@ export default function VotePage() {
                           d='M5 13l4 4L19 7'
                         />
                       </svg>
-                      Vote Successfully Recorded
+                      Suara Berhasil Tercatat
                     </div>
                     <p className='text-gray-600'>
-                      Thank you for participating in this election!
+                      Terima kasih telah berpartisipasi dalam pemilihan ini!
                     </p>
                   </div>
                 )}
@@ -724,7 +725,7 @@ export default function VotePage() {
                     d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'
                   />
                 </svg>
-                View Live Results
+                Lihat Hasil Langsung
               </button>
 
               <button
@@ -744,7 +745,7 @@ export default function VotePage() {
                     d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'
                   />
                 </svg>
-                Transaction Details
+                Detail Transaksi
               </button>
             </div>
           </div>
@@ -773,11 +774,13 @@ export default function VotePage() {
               </div>
 
               <h3 className='text-2xl font-bold text-gray-900 mb-4'>
-                Confirm Your Vote
+                Konfirmasi Suara Anda
               </h3>
-              <p className='text-gray-600 mb-2'>You are about to vote for:</p>
+              <p className='text-gray-600 mb-2'>
+                Anda akan memberikan suara untuk:
+              </p>
               <p className='text-xl font-bold text-indigo-600 mb-6'>
-                {selected !== null ? candidates[selected] : ''}
+                {selected !== null ? candidates[selected] || '' : ''}
               </p>
 
               <div className='bg-yellow-50 border border-yellow-200 rounded-2xl p-4 mb-6'>
@@ -797,11 +800,11 @@ export default function VotePage() {
                   </svg>
                   <div className='text-left'>
                     <p className='text-sm font-medium text-yellow-800'>
-                      Important Notice
+                      Pemberitahuan Penting
                     </p>
                     <p className='text-sm text-yellow-700'>
-                      This action is irreversible. Once submitted, your vote
-                      cannot be changed.
+                      Tindakan ini tidak dapat dibatalkan. Setelah dikirim,
+                      suara Anda tidak dapat diubah.
                     </p>
                   </div>
                 </div>
@@ -812,7 +815,7 @@ export default function VotePage() {
                   onClick={() => setShowConfirmModal(false)}
                   className='flex-1 px-4 py-3 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition-colors duration-200'
                 >
-                  Cancel
+                  Batal
                 </button>
                 <button
                   onClick={() => {
@@ -821,7 +824,7 @@ export default function VotePage() {
                   }}
                   className='flex-1 px-4 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all duration-200'
                 >
-                  Confirm Vote
+                  Konfirmasi Suara
                 </button>
               </div>
             </div>
